@@ -1,10 +1,10 @@
 ---
 name: li-cover
 description: |
-  小红书爆款封面配文生成器。认知心理学 + 行为经济学驱动，输出激进/平衡/保守三版方案。
-  触发方式：/li-cover、「生成封面」、「封面配文」、「小红书标题」
-  XHS viral cover generator. Cognitive psychology + behavioral economics, outputs aggressive/balanced/conservative versions.
-  Trigger: /li-cover, "generate cover", "cover text", "XHS title"
+  小红书爆款标题 + 封面配文生成器。认知心理学 + 行为经济学驱动，每版输出封面配文 + 3个标题，激进/平衡/保守三版方案。
+  触发方式：/li-cover、「生成封面」、「封面配文」、「小红书标题」、「优化标题」
+  XHS viral title + cover copy generator. Cognitive psychology + behavioral economics, outputs cover text + 3 titles per version (aggressive/balanced/conservative).
+  Trigger: /li-cover, "generate cover", "cover text", "XHS title", "optimize title"
 ---
 
 # 小红书爆款封面配文生成器 (v3.1)

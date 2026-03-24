@@ -1,11 +1,11 @@
 # 模块3: 风格校验 (Style Validator)
 
 ## 功能定位
-基于ligge-writer文风DNA,校验内容是否符合鲤哥的表达风格
+基于 li-writer 文风 DNA，校验内容是否符合创作者的表达风格
 
 ## 核心能力
-1. 读取ligge-writer的文风DNA分析报告
-2. 对比大纲/文案与鲤哥的风格特征
+1. 读取 li-writer 的文风 DNA（从 li-writer/SKILL.md 提取）
+2. 对比大纲/文案与创作者的风格特征
 3. 识别不符合风格的表达
 4. 提供风格优化建议
 

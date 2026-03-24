@@ -1,9 +1,9 @@
-# Topic Strategist 模块化使用指南
+# li-topic 模块化使用指南
 
 ## 📁 模块结构
 
 ```
-topic-strategist/
+li-topic/
 ├── SKILL.md (主入口)
 └── modules/
     ├── 1-topic-analyzer.md (选题诊断)
@@ -29,21 +29,21 @@ topic-strategist/
 
 ### 方式1: 完整流程(默认)
 ```
-/topic-strategist [选题内容]
+/li-topic [选题内容]
 ```
 自动执行: 模块1 → 模块2 → 模块3
 
 ### 方式2: 指定模块
 ```
-/topic-strategist --module=1 [选题内容]  # 只做诊断
-/topic-strategist --module=2 [选题内容]  # 只做大纲
-/topic-strategist --module=3 [大纲内容]  # 只做风格校验
+/li-topic --module=1 [选题内容]  # 只做诊断
+/li-topic --module=2 [选题内容]  # 只做大纲
+/li-topic --module=3 [大纲内容]  # 只做风格校验
 ```
 
 ### 方式3: 组合模块
 ```
-/topic-strategist --modules=1,2 [选题内容]  # 诊断+大纲
-/topic-strategist --modules=2,3 [选题内容]  # 大纲+风格校验
+/li-topic --modules=1,2 [选题内容]  # 诊断+大纲
+/li-topic --modules=2,3 [选题内容]  # 大纲+风格校验
 ```
 
 ## 🎯 各模块输出
@@ -64,7 +64,7 @@ topic-strategist/
 - 风格匹配度评分
 - 不符合风格的表达
 - 具体改写建议
-- 基于li-writer文风DNA
+- 基于 li-writer 文风 DNA
 
 ## 💡 使用建议
 
@@ -77,10 +77,10 @@ topic-strategist/
 
 ```
 工作流建议:
-1. topic-strategist (模块1+2) - 诊断+大纲
-2. topic-strategist (模块3) - 风格校验
+1. li-topic (模块1+2) - 诊断+大纲
+2. li-topic (模块3) - 风格校验
 3. li-writer - 生成完整脚本
-4. xhs-cover-generator - 生成封面配文
+4. li-cover - 生成封面配文
 ```
 
 ## 📊 模块依赖关系

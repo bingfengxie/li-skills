@@ -296,21 +296,21 @@ description: 当用户想要[具体场景1]、[具体场景2]、或[具体场景
 ## Skill 类型参考
 
 ### 工作流类型
-多步骤指导，明确的阶段划分，用户交互点，迭代循环。示例：topic-strategist、workflow-optimizer
+多步骤指导，明确的阶段划分，用户交互点，迭代循环。示例：li-topic、li-workflow
 
 ### 工具类型
-快速参考，代码示例，最佳实践，常见任务。示例：claude-api、xhs-cover-generator
+快速参考，代码示例，最佳实践，常见任务。示例：claude-api、li-cover
 
 ### 设计类型
-设计原则，创意指导，风格指南，避免事项。示例：ligge-writer
+设计原则，创意指导，风格指南，避免事项。示例：li-writer
 
 ### 分析类型
-数据处理，模式识别，洞察提取，报告生成。示例：viral-topic-analyzer、writing-dna-analyzer
+数据处理，模式识别，洞察提取，报告生成。示例：li-analyzer
 
 ## 高级技巧
 
 ### 模块化设计
-如果 skill 支持多个功能，拆分为独立模块，支持单独调用或组合使用。示例：topic-strategist 的三模块设计。
+如果 skill 支持多个功能，拆分为独立模块，支持单独调用或组合使用。示例：li-topic 的三模块设计。
 
 ### 脚本集成
 重复性任务放到 scripts/ 目录，在 SKILL.md 中引用。
