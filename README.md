@@ -19,13 +19,7 @@ A suite of Claude Code skills covering the full content creation workflow: topic
 ## 安装 / Installation
 
 ```bash
-# 克隆到你的 Claude skills 目录
-# Clone to your Claude skills directory
-git clone https://github.com/jiangjiax/li-skills ~/.claude/skills/li-skills-repo
-
-# 复制 skills 到安装目录
-# Copy skills to installation directory
-cp -r ~/.claude/skills/li-skills-repo/li* ~/.claude/skills/
+npx skills add jiangjiax/li-skills
 ```
 
 重启 Claude Code 即可使用所有 `/li-*` 指令。

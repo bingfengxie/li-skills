@@ -18,35 +18,22 @@ description: |
 ### 第一步：确认当前版本
 
 ```bash
-cat ~/.claude/skills/VERSION 2>/dev/null || echo "VERSION 文件不存在"
-```
-
-也可以查看安装路径：
-```bash
-ls ~/.claude/skills/ | grep ^li-
+cat ~/.claude/skills/li-writer/SKILL.md | head -3
 ```
 
 ### 第二步：执行升级
 
-**方法一（推荐）：使用 curl 直接安装**
-
 ```bash
-curl -fsSL https://raw.githubusercontent.com/jiangjiax/li-skills/main/install.sh | bash
+npx skills update
 ```
 
-**方法二：手动 git pull（如果已 clone）**
+或重新安装最新版：
 
 ```bash
-cd /path/to/li-skills
-git pull origin main
-cp -r skills/* ~/.claude/skills/
+npx skills add jiangjiax/li-skills
 ```
 
-### 第三步：验证版本
-
-```bash
-cat ~/.claude/skills/VERSION
-```
+### 第三步：重启 Claude Code 会话加载新版本
 
 ---
 
