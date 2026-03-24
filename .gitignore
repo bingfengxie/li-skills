@@ -1,0 +1,9 @@
+# Ignore macOS metadata
+.DS_Store
+
+# Ignore editor directories
+.vscode/
+.idea/
+
+# Ignore local config
+*.local
