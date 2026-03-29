@@ -1,6 +1,6 @@
 ---
 name: li-factory
-description: This skill should be used when the user wants to "create a skill", "build a new skill", "write a skill", "improve a skill", "update a skill", "optimize skill description", or needs guidance on skill structure, progressive disclosure, or skill development best practices. 触发方式：/li-factory、「创建skill」、「改进skill」、「帮我写一个skill」、「优化skill描述」、「把这个流程变成skill」、「这个工作流能做成skill吗」。即使用户没有明确说"skill"，只要他们想把某个重复流程自动化或封装成可复用工具，也应该触发本 skill。
+description: This skill should be used when the user wants to "create a skill", "build a new skill", "write a skill", "improve a skill", "update a skill", "optimize skill description", or needs guidance on skill structure, progressive disclosure, or skill development best practices. 触发方式：/li-factory、「创建skill」、「改进skill」、「帮我写一个skill」、「优化skill」、「把这个流程变成skill」、「这个工作流能做成skill吗」。即使用户没有明确说"skill"，只要他们想把某个重复流程自动化或封装成可复用工具，也应该触发本 skill。
 ---
 
 # Li-Factory — Skill 生产工厂
