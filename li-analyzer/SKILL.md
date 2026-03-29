@@ -1,10 +1,10 @@
 ---
 name: li-analyzer
 description: |
-  爆款话题分析器。自动读取已发布视频脚本，按爆款等级分类，提取可复用的创作规律。
-  触发方式：/li-analyzer、「数据复盘」、「爆款分析」、「分析我的内容」
-  Viral topic analyzer. Auto-reads published video scripts, classifies by viral tier, extracts reusable content patterns.
-  Trigger: /li-analyzer, "data review", "analyze viral", "analyze my content"
+  当用户说「数据复盘」「爆款分析」「分析我的内容」「拆解博主爆款」「分析哪期视频最火」时，应使用本 skill。
+  自动读取已发布视频脚本，按爆款等级（✈️🚗🛵🚲🚶）分类，提取标题公式、内容结构、话题类型等可复用创作规律，生成分类整理报告。
+  不应触发：选题推荐（用 li-recorder）、写脚本（用 li-writer）。
+  Use when the user asks to "analyze my content", "data review", "viral analysis", or wants to break down a creator's top-performing videos.
 ---
 
 # 爆款话题拆解分类系统
@@ -300,23 +300,3 @@ description: |
 2. **可复制性** - 提供具体公式和模板，可直接套用
 3. **行动导向** - 提供创作灵感和选题建议
 4. **系统性** - 全面覆盖所有视频，结构化呈现
-
----
-
-## 执行流程
-
-当用户请求分析时:
-
-1. **识别博主**: 从用户输入中提取博主名称
-2. **搜索文件**: 使用Glob工具搜索对应文件夹
-3. **读取数据**: 批量读取所有视频脚本
-4. **数据处理**: 提取、计算、排序、分级
-5. **话题归纳**: 识别模式、归类、统计
-6. **模板提取**: 分析共同特征、提炼公式
-7. **生成整理**: 按照标准格式输出
-8. **保存文件**: 创建文件夹并保存
-9. **返回结果**: 告知用户保存位置和核心发现
-
----
-
-现在,请告诉我你想拆解哪位博主的爆款点,我将自动分析并生成分类整理!

@@ -1,10 +1,9 @@
 ---
 name: li-upgrade
 description: |
-  升级 li-skills 到最新版本。
-  触发方式：/li-upgrade、「升级skills」、「更新li-skills」
-  Upgrade li-skills to the latest version.
-  Trigger: /li-upgrade, "upgrade skills", "update li-skills"
+  当用户说「升级 skills」「更新 li-skills」「li-skills 有新版本吗」「upgrade skills」「skills 怎么更新」时，应使用本 skill。即使用户只是问「有新版本吗」也应触发，主动执行升级流程。
+  检查当前版本，运行 npx skills update 或重新安装 jiangjiax/li-skills，完成后提示用户重启 Claude Code 会话以加载新版本。
+  Use when the user wants to "upgrade skills", "update li-skills", or get the latest version of the li creator toolkit.
 ---
 
 # 升级 li-skills

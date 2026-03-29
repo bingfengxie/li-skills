@@ -1,10 +1,10 @@
 ---
 name: li-recorder
 description: |
-  选题推荐 + 记录专家。基于爆款模板库匹配最合适的选题方向，给出标题公式和预期数据，写入选题记录。
-  触发方式：/li-recorder、「记录选题」、「新选题」、「这个选题怎么样」
-  Topic recommendation + recorder. Matches topic ideas to viral templates, provides title formulas and expected data, logs to topic file.
-  Trigger: /li-recorder, "record topic", "new topic idea", "is this topic good"
+  当用户说「记录选题」「新选题」「这个选题怎么样」「我有个想法」「帮我记一下」或分享一个粗糙的内容想法需要评估和记录时，应使用本 skill。即使用户只是随口说出一个内容想法，也应主动触发评估和记录流程，不要等用户明确说「记录」。
+  读取 13 个爆款模板库，匹配最合适的 1-3 个模板，给出标题公式和预期数据（点赞/收藏/涨粉），确认后写入 00-选题记录.md。
+  不应触发：深化选题生成大纲（用 li-topic）、直接写脚本（用 li-writer）。
+  Use when the user wants to "record a topic", "log a topic idea", "evaluate this topic idea", or shares a rough content concept needing template matching and logging.
 ---
 
 # 选题推荐 + 记录系统

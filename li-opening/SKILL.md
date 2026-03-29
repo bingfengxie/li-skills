@@ -1,10 +1,10 @@
 ---
 name: li-opening
 description: |
-  视频开头钩子优化器。三路并发生成10-15条开头方案，内置视界诊断和内容质量守门。
-  触发方式：/li-opening、「优化开头」、「开头怎么写」、「帮我写钩子」
-  Video opening hook optimizer. Three-path generation of 10-15 hooks with perspective diagnosis and content quality gate.
-  Trigger: /li-opening, "optimize opening", "write hook", "improve intro"
+  当用户说「优化开头」「开头怎么写」「帮我写钩子」「开头不好」或提供了视频脚本需要改进开头时，应使用本 skill。
+  先做内容质量守门（素材是否充足）和视界诊断（是否从观众视界出发），再三路并发生成 10-15 条开头方案，附 Top 3 推荐和爆款模板说明。
+  不应触发：生成完整脚本（用 li-writer）、生成封面标题（用 li-cover）。
+  Use when the user wants to "optimize opening", "write hook", "improve intro", or provides a script needing a better opening.
 ---
 
 # 开头钩子优化器
