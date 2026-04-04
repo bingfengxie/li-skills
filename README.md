@@ -4,7 +4,7 @@
 >
 > AI creator toolkit — A suite of Claude Code skills for content creators
 
-**Version**: 1.0.0 | **License**: CC BY-NC 4.0
+**Version**: 1.1.0 | **License**: CC BY-NC 4.0
 
 ---
 
@@ -35,12 +35,14 @@ Restart Claude Code to activate all `/li-*` commands.
 | `/li` | 主入口，自动路由 / Main entry, auto-route | `/li` |
 | `/li-writer` | 视频脚本 + 长文生成 / Script & article writer | `/li-writer`, 「生成脚本」 |
 | `/li-topic` | 选题深化 + 大纲设计 / Topic strategy & outline | `/li-topic`, 「深化选题」 |
-| `/li-recorder` | 选题记录 + 模板匹配 / Topic recorder & matcher | `/li-recorder`, 「记录选题」 |
+| `/li-recorder` | 选题诊断 + 记录 + 举一反三 / Topic diagnosis & logging | `/li-recorder`, 「记录选题」 |
 | `/li-opening` | 视频开头钩子优化 / Opening hook optimizer | `/li-opening`, 「优化开头」 |
 | `/li-cover` | 小红书封面配文生成 / XHS cover text generator | `/li-cover`, 「生成封面」 |
 | `/li-analyzer` | 爆款规律分析 / Viral pattern analyzer | `/li-analyzer`, 「数据复盘」 |
 | `/li-workflow` | 创作流程优化 / Workflow optimizer | `/li-workflow`, 「优化流程」 |
 | `/li-factory` | Skill 开发工厂 / Skill development factory | `/li-factory`, 「创建skill」 |
+| `/li-stats` | 数据录入 + 自动归档 / Stats sync & auto-archive | `/li-stats`, 「填入数据」 |
+| `/li-distribute` | 一鱼多吃：脚本转长文/短文 / Repurpose script to article & posts | `/li-distribute`, 「一鱼多吃」 |
 | `/li-upgrade` | 升级到最新版本 / Upgrade to latest | `/li-upgrade` |
 
 ---
@@ -51,8 +53,10 @@ Restart Claude Code to activate all `/li-*` commands.
 1. 记录选题灵感     →  /li-recorder
 2. 深化选题大纲     →  /li-topic
 3. 生成视频脚本     →  /li-writer
-4. 优化视频开头     →  /li-opening  ← 必做 / Required
-5. 生成封面配文     →  /li-cover    ← 必做 / Required
+4. 优化视频开头     →  /li-opening    ← 必做 / Required
+5. 生成封面配文     →  /li-cover      ← 必做 / Required
+6. 脚本转长文/短文  →  /li-distribute （脚本定稿后按需执行）
+7. 填入发布数据     →  /li-stats      （自动归档文件）
 ```
 
 ---
