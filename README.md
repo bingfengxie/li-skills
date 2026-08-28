@@ -26,6 +26,26 @@ npx skills add jiangjiax/li-skills
 
 Restart Claude Code to activate all `/li-*` commands.
 
+### 只安装 Steam 市场调研 Skill / Install Only the Steam Skill
+
+Claude Code：
+
+```bash
+git clone https://github.com/jiangjiax/li-skills.git /tmp/li-skills
+mkdir -p ~/.claude/skills
+cp -R /tmp/li-skills/li-steam-market-research ~/.claude/skills/
+```
+
+Codex：
+
+```bash
+git clone https://github.com/jiangjiax/li-skills.git /tmp/li-skills
+mkdir -p ~/.codex/skills
+cp -R /tmp/li-skills/li-steam-market-research ~/.codex/skills/
+```
+
+安装后重启对应应用。调用方式：`$li-steam-market-research`，或直接提出“调研 Steam Indie + RPG Top 20”等请求。
+
 ---
 
 ## Skills 列表 / Skill List
