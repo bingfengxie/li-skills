@@ -44,6 +44,7 @@ Restart Claude Code to activate all `/li-*` commands.
 | `/li-stats` | 数据录入 + 自动归档 / Stats sync & auto-archive | `/li-stats`, 「填入数据」 |
 | `/li-distribute` | 一鱼多吃：脚本转长文/短文 / Repurpose script to article & posts | `/li-distribute`, 「一鱼多吃」 |
 | `/li-upgrade` | 升级到最新版本 / Upgrade to latest | `/li-upgrade` |
+| `/li-steam-market-research` | Steam 独立游戏榜单与单游戏市场调研 / Steam indie market research | `/li-steam-market-research`, 「查 Steam 游戏」 |
 
 ---
 

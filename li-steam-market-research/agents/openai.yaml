@@ -1,0 +1,4 @@
+interface:
+  display_name: "Steam 游戏市场调研"
+  short_description: "调研 Steam Top N 或单个游戏成功案例，并生成可读双语 PDF"
+  default_prompt: "使用 $li-steam-market-research 调研我指定的 Steam 榜单或单个游戏。榜单任务按两阶段执行；单游戏任务深挖团队经历、产品机制、短视频获客和发行路径，并生成英文在上、中文在下的儿童易懂双语 PDF。"
