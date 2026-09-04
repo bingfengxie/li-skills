@@ -19,7 +19,7 @@ A suite of Claude Code skills covering the full content creation workflow: topic
 ## 安装 / Installation
 
 ```bash
-npx skills add jiangjiax/li-skills
+npx skills add bingfengxie/li-skills
 ```
 
 重启 Claude Code 即可使用所有 `/li-*` 指令。

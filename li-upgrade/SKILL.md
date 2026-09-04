@@ -2,7 +2,7 @@
 name: li-upgrade
 description: |
   当用户说「升级 skills」「更新 li-skills」「li-skills 有新版本吗」「upgrade skills」「skills 怎么更新」时，应使用本 skill。即使用户只是问「有新版本吗」也应触发，主动执行升级流程。
-  检查当前版本，运行 npx skills update 或重新安装 jiangjiax/li-skills，完成后提示用户重启 Claude Code 会话以加载新版本。
+  检查当前版本，运行 npx skills update 或重新安装 bingfengxie/li-skills，完成后提示用户重启 Claude Code 会话以加载新版本。
   Use when the user wants to "upgrade skills", "update li-skills", or get the latest version of the li creator toolkit.
 ---
 
@@ -29,7 +29,7 @@ npx skills update
 或重新安装最新版：
 
 ```bash
-npx skills add jiangjiax/li-skills
+npx skills add bingfengxie/li-skills
 ```
 
 ### 第三步：重启 Claude Code 会话加载新版本
