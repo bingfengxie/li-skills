@@ -31,7 +31,7 @@ Restart Claude Code to activate all `/li-*` commands.
 Claude Code：
 
 ```bash
-git clone https://github.com/jiangjiax/li-skills.git /tmp/li-skills
+git clone https://github.com/bingfengxie/li-skills.git /tmp/li-skills
 mkdir -p ~/.claude/skills
 cp -R /tmp/li-skills/li-steam-market-research ~/.claude/skills/
 ```
@@ -39,7 +39,7 @@ cp -R /tmp/li-skills/li-steam-market-research ~/.claude/skills/
 Codex：
 
 ```bash
-git clone https://github.com/jiangjiax/li-skills.git /tmp/li-skills
+git clone https://github.com/bingfengxie/li-skills.git /tmp/li-skills
 mkdir -p ~/.codex/skills
 cp -R /tmp/li-skills/li-steam-market-research ~/.codex/skills/
 ```

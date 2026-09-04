@@ -46,5 +46,5 @@ npx skills add jiangjiax/li-skills
 
 ## 获取帮助
 
-- GitHub: https://github.com/jiangjiax/li-skills
-- Issues: https://github.com/jiangjiax/li-skills/issues
+- GitHub: https://github.com/bingfengxie/li-skills
+- Issues: https://github.com/bingfengxie/li-skills/issues
