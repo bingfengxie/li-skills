@@ -24,6 +24,16 @@ description: |
 **腾讯云密钥**（控制台 https://console.cloud.tencent.com/cam/capi 申请），键名统一 `TENCENTCLOUD_SECRET_ID` / `TENCENTCLOUD_SECRET_KEY`，三个来源按优先级加载（后者覆盖前者）：
 ① 环境变量 ② `~/.cc-switch/skills/.env` ③ 当前工作目录 `.env`。任选其一，格式均 `TENCENTCLOUD_SECRET_ID=你的_id`（值不带引号）。
 
+**封面 OCR 工具（skill 自带 `scripts/cover_ocr.swift`）**——封面/截图文字的识别**一律优先用它**，不要用 Read 看图，也不要现场新写 OCR 脚本：
+
+- 本环境模型读不了图片（无视觉）；即使个别模型能读图，为保持归档一致也先走此工具
+- 首次 / 工具缺失时编译（产出 `/tmp/ocr`；`/tmp` 重启即清，发现缺失就重建）：
+  ```bash
+  swiftc /Users/xiebingfeng/pythonSpaces/Li-Skills/li-skills/li-transcript/scripts/cover_ocr.swift -o /tmp/ocr
+  ```
+- 调用：`/tmp/ocr <图片路径>` → 逐行输出识别文字，带 `[y=.. x=..]` 坐标（y 越大越靠上）；图打不开会打印 `无法加载图片`
+- 依赖 macOS 系统自带 Vision 框架，无需装包（系统依赖 ffmpeg 仍按上文装）
+
 ---
 
 ## 工作流程
@@ -54,7 +64,7 @@ description: |
 
 要点：
 - 默认输出到临时目录（脚本不清理）；要保留素材（如后续做封面 OCR）可给 `--out 目录`
-- 图文笔记（type=normal）不转录，`text` 为空 → 改对 `cover`/图集做 OCR
+- 图文笔记（type=normal）不转录，`text` 为空 → 改对 `cover`/图集做 OCR（工具见上文「封面 OCR 工具」）
 - 封面下载失败时 `cover: null`，可退而用视频首帧做封面 OCR
 - 视频下载优先走 backup 源（稳定、支持续传），失败才兜底 master 源
 - 调试可用 `--meta-only` 只看元数据，不下载不转录
@@ -150,6 +160,7 @@ tags:
 
 归档补记：
 - 小红书把 JSON `interact` 值填入数据块，并建议在 frontmatter 附一行 `noteId: <JSON 的 noteId>` 便于复核
-- 封面花字：小红书封面已由脚本下载到 `out_dir/cover.jpg`，先做 OCR 再填入；**识别不全或封面缺失时，在该节加"校注：……"标注，不要臆补**（图源失效时可用视频首帧 OCR 兜底）
+- 封面花字：小红书封面已由脚本下载到 `out_dir/cover.jpg`，用上文**「封面 OCR 工具」**识别后填入——先跑 `/tmp/ocr cover.jpg` 取文字，**不要用 Read 看图、不要现场新写 OCR 脚本**
+- 封面缺失 / OCR 返回空或乱码时：在该节加 **"校注：……"** 标注，**不要臆补**；可先用 `ffmpeg -y -loglevel error -ss 0 -i out_dir/video.mp4 -frames:v 1 out_dir/frame.jpg` 抽视频首帧，再 `/tmp/ocr frame.jpg` 兜底
 
 保存后一句话告知路径。
