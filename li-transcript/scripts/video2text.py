@@ -11,35 +11,34 @@ import sys
 import tempfile
 import time
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
-
-def find_env_file() -> str:
-    """从脚本所在目录向上查找 .env 文件，最多向上 6 层。"""
-    current = SCRIPT_DIR
-    for _ in range(6):
-        candidate = os.path.join(current, ".env")
-        if os.path.exists(candidate):
-            return candidate
-        parent = os.path.dirname(current)
-        if parent == current:
-            break
-        current = parent
-    return ""
-
-
-def load_env():
-    """从 .env 文件加载环境变量（不依赖第三方库）。"""
-    env_path = find_env_file()
-    if not env_path:
+def parse_env(path: str):
+    """把单个 .env 文件的键值读入 os.environ（覆盖同名键）。"""
+    if not path or not os.path.exists(path):
         return
-    with open(env_path) as f:
+    with open(path) as f:
         for line in f:
             line = line.strip()
             if not line or line.startswith("#") or "=" not in line:
                 continue
             key, value = line.split("=", 1)
-            os.environ.setdefault(key.strip(), value.strip())
+            os.environ[key.strip()] = value.strip()
+
+
+def load_env():
+    """密钥加载，三个来源按「后者覆盖前者」的优先级合并：
+
+    1. 环境变量（进程自带）
+    2. ~/.cc-switch/skills/.env
+    3. 当前工作目录下的 .env
+
+    即：cwd/.env > ~/.cc-switch/skills/.env > 环境变量。
+    不依赖第三方库。
+    """
+    # 来源2：cc-switch 部署目录下的 .env
+    parse_env(os.path.expanduser("~/.cc-switch/skills/.env"))
+    # 来源3：当前工作目录下的 .env（后者覆盖前者，故最后加载）
+    parse_env(os.path.join(os.getcwd(), ".env"))
 
 
 def get_video_title(url: str) -> str:
@@ -109,10 +108,10 @@ def transcribe(audio_path: str) -> str:
     from tencentcloud.common.profile.http_profile import HttpProfile
     from tencentcloud.asr.v20190614 import asr_client, models
 
-    secret_id = os.environ.get("TENCENT_SECRET_ID")
-    secret_key = os.environ.get("TENCENT_SECRET_KEY")
+    secret_id = os.environ.get("TENCENTCLOUD_SECRET_ID")
+    secret_key = os.environ.get("TENCENTCLOUD_SECRET_KEY")
     if not secret_id or not secret_key:
-        print("请设置 TENCENT_SECRET_ID 和 TENCENT_SECRET_KEY 环境变量，或在项目根目录 .env 文件中配置", file=sys.stderr)
+        print("请配置 TENCENTCLOUD_SECRET_ID 和 TENCENTCLOUD_SECRET_KEY：环境变量、~/.cc-switch/skills/.env 或项目根目录 .env", file=sys.stderr)
         sys.exit(1)
 
     # 读取音频并 base64 编码

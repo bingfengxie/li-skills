@@ -27,10 +27,15 @@ brew install yt-dlp ffmpeg
 python3 -m venv .claude/skills/li-transcript/scripts/.venv
 .claude/skills/li-transcript/scripts/.venv/bin/pip install tencentcloud-sdk-python-asr
 
-# 3. 在项目根目录创建 .env 文件，填入腾讯云密钥（控制台 https://console.cloud.tencent.com/cam/capi 申请）
-# 格式：
-# TENCENT_SECRET_ID=你的_id
-# TENCENT_SECRET_KEY=你的_key
+# 3. 配置腾讯云密钥（控制台 https://console.cloud.tencent.com/cam/capi 申请）
+#    密钥键名统一为 TENCENTCLOUD_SECRET_ID / TENCENTCLOUD_SECRET_KEY。
+#    三个来源按优先级加载（后者覆盖前者）：
+#      ① 环境变量
+#      ② ~/.cc-switch/skills/.env
+#      ③ 当前工作目录下的 .env
+#    任选其一配置即可，格式（①②③ 通用）：
+#    TENCENTCLOUD_SECRET_ID=你的_id
+#    TENCENTCLOUD_SECRET_KEY=你的_key
 ```
 
 环境准备好之后，跳到 Step 1。
@@ -48,7 +53,7 @@ python3 -m venv .claude/skills/li-transcript/scripts/.venv
 - stdout：去除时间戳的纯文本逐字稿
 
 脚本报错时的排查顺序：
-1. 项目根目录的 `.env` 是否包含 `TENCENT_SECRET_ID` 和 `TENCENT_SECRET_KEY`（脚本会从当前目录向上查找最多 6 层）
+1. 密钥是否已配置（键名 `TENCENTCLOUD_SECRET_ID` / `TENCENTCLOUD_SECRET_KEY`），来源三选一：环境变量、`~/.cc-switch/skills/.env`、当前工作目录下的 `.env`
 2. `.claude/skills/li-transcript/scripts/.venv/` 是否正常（重建：`python3 -m venv .claude/skills/li-transcript/scripts/.venv && .claude/skills/li-transcript/scripts/.venv/bin/pip install tencentcloud-sdk-python-asr`）
 3. 视频链接是否被 yt-dlp 支持
 
