@@ -135,10 +135,52 @@ def convert_audio(video_path: str, out_dir: str) -> str:
              "-i", video_path, "-ar", "16000", "-ac", "1", "-b:a", "64k", out])
     if r.returncode != 0 or not os.path.exists(out):
         sys.exit(f"ffmpeg 转码失败:\n{r.stderr}")
-    mb = os.path.getsize(out) / (1024 * 1024)
-    if mb > 5:
-        sys.exit(f"音频 {mb:.1f}MB 超过腾讯 ASR 5MB 上限，视频过长")
     return out
+
+
+def split_for_asr(audio_path: str, out_dir: str):
+    """音频 >5MB 时按 ~7 分钟切片（64kbps≈3.4MB/段），返回 [(seg_path, start_s)]。
+
+    腾讯 CreateRecTask 以 SourceType=1 把音频 base64 塞进请求体，单文件上限 5MB，
+    长视频需分片各提交一次，再按 start 偏移回全局时间轴。
+    """
+    mb = os.path.getsize(audio_path) / (1024 * 1024)
+    if mb <= 5:
+        return [(audio_path, 0.0)]
+    print(f"音频 {mb:.1f}MB 超过单任务 5MB 上限，自动分片转录…", file=sys.stderr)
+    r = run(["ffprobe", "-v", "error", "-show_entries", "format=duration",
+             "-of", "default=noprint_wrappers=1:nokey=1", audio_path])
+    try:
+        total = float(r.stdout.strip())
+    except ValueError:
+        sys.exit(f"无法获取音频时长: {r.stderr}")
+    chunk_s = 420  # 64kbps × 420s ≈ 3.4MB，留足余量
+    segs, start, idx = [], 0.0, 0
+    while start < total - 1e-3:
+        seg = os.path.join(out_dir, f"audio_seg_{idx:02d}.mp3")
+        rr = run(["ffmpeg", "-y", "-loglevel", "error", "-ss", f"{start:.2f}",
+                  "-t", str(chunk_s), "-i", audio_path, "-c", "copy", seg])
+        if rr.returncode != 0 or not os.path.exists(seg):
+            sys.exit(f"分片失败:\n{rr.stderr}")
+        if os.path.getsize(seg) / (1024 * 1024) > 5:
+            sys.exit(f"分片仍超 5MB（第 {idx} 段），请调小 chunk_s")
+        segs.append((seg, start))
+        start += chunk_s
+        idx += 1
+    return segs
+
+
+def shift_timestamps(text: str, base_s: float) -> str:
+    """把某段的分片内时间戳 [m:ss.f,m:ss.f] 整体加 base_s，拼回全局时间轴。"""
+    if not text or base_s <= 0:
+        return text
+    def fmt(t: float) -> str:
+        return f"{int(t // 60)}:{t % 60:.1f}"
+    def repl(m):
+        a = int(m.group(1)) * 60 + float(m.group(2)) + base_s
+        b = int(m.group(3)) * 60 + float(m.group(4)) + base_s
+        return f"[{fmt(a)},{fmt(b)}]"
+    return re.sub(r"\[(\d+):(\d+\.\d+),(\d+):(\d+\.\d+)\]", repl, text)
 
 
 def transcribe(audio_path: str) -> str:
@@ -253,7 +295,14 @@ def main():
         video_path = download_video(out_dir, master, backups)
         audio_path = convert_audio(video_path, out_dir)
         print("[6/6] 语音识别...", file=sys.stderr)
-        timed = transcribe(audio_path).strip()
+        parts = []
+        segs = split_for_asr(audio_path, out_dir)
+        for i, (seg, start) in enumerate(segs):
+            if len(segs) > 1:
+                print(f"  第 {i + 1}/{len(segs)} 段…", file=sys.stderr)
+            part = transcribe(seg).strip()
+            parts.append(shift_timestamps(part, start))
+        timed = "\n".join(p for p in parts if p).strip()
         result.update(video=video_path, audio=audio_path,
                       text=clean_timestamps(timed).strip(), text_timed=timed)
     elif not args.meta_only:
