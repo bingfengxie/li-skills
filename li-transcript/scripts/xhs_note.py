@@ -11,8 +11,9 @@ video2text.py 走 yt-dlp，对小红书（无提取器、视频直链带时效�
 输出约定（与 video2text.py 对齐）：
 - stderr：进度信息 + `[标题] xxx` / `[作者] xxx`
 - stdout：单个 JSON（ensure_ascii=False），含 noteId/type/title/desc/tags/作者/互动数/
-         本地文件路径(cover/video/audio)/逐字稿(text 去时间戳, text_timed 带时间戳)
-- 图文笔记（type=normal）不转录：text 为空，靠 AI 对图片做 OCR
+         本地文件路径(cover/video/audio/images)/逐字稿(text 去时间戳, text_timed 带时间戳)
+- 图文笔记（type=normal）不转录：text 为空，改为逐张 OCR out_dir/img_XX.jpg 拼接成原文
+  （images 字段是整组图集路径，正文通常在其中，只 OCR 封面会漏）
 """
 
 import argparse
@@ -106,6 +107,31 @@ def pick_cover_url(note: dict):
     if urls:
         return urls[-1], list(dict.fromkeys(urls))
     return None, []
+
+
+def pick_image_urls(note: dict):
+    """按图集顺序返回每张图的最大分辨率直链。
+
+    图文笔记（type=normal）的正文通常就在这些图里，必须整组取回，
+    只取第一张（封面）会漏掉正文。
+    """
+    urls = []
+    for im in note.get("imageList") or []:
+        candidates = [i.get("url") for i in (im.get("infoList") or []) if i.get("url")]
+        if candidates:
+            urls.append(candidates[-1])   # infoList 按分辨率升序，末档最大
+    return urls
+
+
+def download_images(out_dir: str, urls: list) -> list:
+    """下载全部图集到 out_dir/img_XX.jpg，返回成功路径列表（按原顺序）。"""
+    print(f"[—] 下载图集（{len(urls)} 张，图文笔记正文所在）...", file=sys.stderr)
+    paths = []
+    for i, u in enumerate(urls, 1):
+        dest = os.path.join(out_dir, f"img_{i:02d}.jpg")
+        if http_get(u.replace("http://", "https://"), dest):
+            paths.append(dest)
+    return paths
 
 
 def pick_stream(note: dict):
@@ -286,7 +312,7 @@ def main():
                      "commented": interact.get("commentCount", ""),
                      "shared": interact.get("shareCount", "")},
         "duration_s": round(dur_ms / 1000, 1) if dur_ms else None,
-        "out_dir": out_dir, "video": None, "audio": None,
+        "out_dir": out_dir, "video": None, "audio": None, "images": [],
         "text": "", "text_timed": "",
     }
 
@@ -306,7 +332,10 @@ def main():
         result.update(video=video_path, audio=audio_path,
                       text=clean_timestamps(timed).strip(), text_timed=timed)
     elif not args.meta_only:
-        print(f"[提示] type={type_}，非视频不转录，请 AI 对封面/图集做 OCR", file=sys.stderr)
+        imgs = download_images(out_dir, pick_image_urls(note))
+        result.update(images=imgs)
+        print(f"[提示] type={type_}，非视频不转录；已下载图集 {len(imgs)} 张到 out_dir，"
+              f"请逐张 OCR 并按顺序拼接为原文（只 OCR 封面会漏正文）", file=sys.stderr)
 
     print(json.dumps(result, ensure_ascii=False))
 
